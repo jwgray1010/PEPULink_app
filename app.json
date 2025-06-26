@@ -1,29 +1,83 @@
 {
   "expo": {
-    "name": "PEPULink_app",
-    "slug": "PEPULink_app",
-    "version": "1.0.0",
+    "name": "PEPULink",
+    "slug": "pepulink-app",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/adaptive-icon.png",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pepulink.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan QR codes for payments.",
+        "NSFaceIDUsageDescription": "This app uses Face ID for secure authentication.",
+        "NSLocalNotificationUsageDescription": "This app uses notifications to alert you about transaction updates.",
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIRequiredDeviceCapabilities": ["armv7"],
+        "UISupportedInterfaceOrientations": [
+          "UIInterfaceOrientationPortrait",
+          "UIInterfaceOrientationPortraitUpsideDown"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "package": "com.pepulink.app",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "USE_FINGERPRINT",
+        "USE_BIOMETRIC",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED",
+        "NOTIFICATIONS",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ],
+      "edgeToEdgeEnabled": true,
+      "allowBackup": false
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "plugins": [
+      "expo-camera",
+      "expo-notifications",
+      "expo-local-authentication",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/adaptive-icon.png",
+          "color": "#007AFF",
+          "mode": "production"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "pepulink-mobile-app"
+      }
+    },
+    "notification": {
+      "icon": "./assets/adaptive-icon.png",
+      "color": "#007AFF",
+      "androidMode": "default",
+      "androidCollapsedTitle": "PEPULink"
     }
   }
 }

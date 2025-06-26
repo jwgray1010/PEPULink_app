@@ -1,223 +1,282 @@
-# LinkLayer - Advanced Web3 Payment Platform
+# PEPULink - Advanced Web3 Payment Platform (Mobile Enhanced)
 
-A React Native Expo application for the LinkLayer payment platform, featuring wallet connectivity, QR code payments, and AI-powered spending analytics.
+A comprehensive React Native Expo application that brings advanced Web3 payment capabilities, AI-powered financial insights, professional analytics, and mobile-optimized features to iOS and Android devices.
 
-## Features
+## 🚀 Advanced Mobile Features
 
-### 🔗 Web3 Wallet Integration
-- **RainbowKit + Wagmi**: Seamless wallet connectivity
-- **Custom LinkLayer Chain**: Native support for LinkLayer V2 (Chain ID: 97741)
-- **Multi-chain Support**: Ethereum mainnet compatibility
-- **Secure Transactions**: End-to-end encrypted payment processing
+### 📱 Mobile-First Enhancements
+- **Haptic Feedback**: Tactile feedback throughout the app for better user experience
+- **Biometric Authentication**: Face ID/Touch ID support for secure transactions
+- **Push Notifications**: Real-time transaction alerts and payment confirmations
+- **Dark/Light Mode**: Automatic theme switching with system preference detection
+- **Pull-to-Refresh**: Native pull-to-refresh functionality on all screens
+- **Loading Skeletons**: Professional loading states with skeleton animations
+- **Offline Support**: Basic offline functionality with local data caching
 
-### 📱 Payment System
-- **QR Code Scanning**: Fast merchant payment processing
-- **Card Management**: Digital wallet card with real-time balance
-- **Transaction History**: Complete payment tracking and analytics
-- **Top-up Integration**: Easy balance management
+### 🔐 Enhanced Security
+- **Secure Storage**: Encrypted local storage for sensitive data
+- **Biometric Gates**: Optional biometric authentication for high-value transactions
+- **Session Management**: Secure session handling with automatic timeouts
+- **Device-Specific Security**: Platform-optimized security implementations
 
-### 🤖 AI Smart Spending
-- **Spending Analysis**: AI-powered insights and recommendations
-- **Category Tracking**: Automatic expense categorization
-- **Budget Alerts**: Intelligent spending limit notifications
-- **Predictive Analytics**: Future spending pattern analysis
+### 🎨 Advanced UI/UX
+- **Theme System**: Complete dark/light mode with user preference persistence
+- **Smooth Animations**: Native-quality animations and micro-interactions
+- **Responsive Design**: Optimized layouts for phones and tablets
+- **Platform-Specific UI**: iOS and Android native design patterns
 
-### 📊 Analytics Dashboard
-- **Victory Native Charts**: Professional data visualization
-- **Real-time Insights**: Live spending trends and statistics
-- **Category Breakdown**: Detailed expense analysis
-- **Custom Reports**: Personalized financial insights
+## 🚀 Advanced Features
 
-## Tech Stack
+### 🤖 AI Smart Spending Assistant
+- **Interactive Chat Interface**: Full-featured AI chat with personalized spending insights
+- **Real-time Analysis**: AI analyzes your spending patterns and provides actionable recommendations
+- **Smart Suggestions**: Quick suggestion buttons for common queries
+- **Contextual Insights**: Personalized tips based on your actual transaction data
 
-- **Framework**: React Native with Expo SDK 51+
-- **Navigation**: React Navigation v6 (Bottom Tabs + Stack)
-- **Web3**: RainbowKit v2.2+ + Wagmi v2.15+
-- **Charts**: Victory Native for data visualization
-- **Camera**: Expo Camera + Barcode Scanner for QR codes
-- **UI**: React Native Elements + Custom styled components
-- **State**: React hooks and context API
+### 📊 Professional Analytics Dashboard
+- **Multi-view Analytics**: Overview, trends, categories, and insights tabs
+- **Interactive Charts**: Victory Native charts with smooth animations
+- **Category Breakdown**: Detailed spending analysis by category with progress bars
+- **Time Range Selection**: 7 days, 1 month, 3 months, 1 year views
+- **Budget Tracking**: Visual progress indicators and spending limit alerts
 
-## Getting Started
+### 🏪 Merchant QR Generator
+- **Business Templates**: Pre-configured templates for different business types
+- **Custom QR Codes**: Generate payment QR codes with business branding
+- **Quick Amounts**: Preset amount buttons for faster transactions
+- **Share & Save**: Export QR codes or share payment links
+- **Professional Design**: Beautiful gradient UI with merchant information
+
+### 💳 Advanced Card Management
+- **Multi-card Support**: Manage multiple virtual and physical cards
+- **Card Types**: Standard, Gold, Platinum, and Black card tiers
+- **Freeze/Unfreeze**: Instant card control for security
+- **Spending Limits**: Set daily, weekly, and monthly limits
+- **Transaction History**: Detailed transaction tracking per card
+- **Settings Management**: Customize notifications, nicknames, and limits
+
+### 🎯 Enhanced User Experience
+- **Onboarding Tour**: Interactive guided tour for new users
+- **Floating Messages**: Non-intrusive notification system
+- **Smooth Animations**: Professional UI animations and transitions
+- **Enhanced Quick Actions**: Extended grid with more functionality
+- **Professional Card UI**: 3D card design with realistic gradients
+
+## 🔧 Technical Architecture
+
+### Core Technologies
+- **React Native + Expo SDK 53**: Latest mobile development framework
+- **RainbowKit + Wagmi**: Advanced Web3 wallet integration
+- **Victory Native**: Professional data visualization
+- **AsyncStorage**: Local data persistence
+- **React Navigation**: Smooth navigation experience
+
+### Web3 Integration
+- **Custom LinkLayer Chain (ID: 97741)**: Optimized for fast transactions
+- **Ethereum Mainnet Support**: Full compatibility with existing wallets
+- **Multi-wallet Support**: Connect multiple wallets simultaneously
+- **Transaction Management**: Secure transaction handling and validation
+
+### Data & Analytics
+- **Smart Data Persistence**: Efficient local storage with cleanup utilities
+- **Real-time Insights**: Live spending analysis and categorization
+- **Export Capabilities**: Full data export/import functionality
+- **Privacy-focused**: All sensitive data stored locally
+
+## 📱 Screen Breakdown
+
+### Home Screen - Enhanced
+- **Dynamic Card Display**: Animated card with real balance updates
+- **AI Insights Widget**: Quick spending insights carousel
+- **Extended Quick Actions**: 8 action items including AI assistant, merchant QR, and card management
+- **Recent Transactions**: Live transaction feed with status indicators
+- **Floating Messages**: Smart notification system
+- **Multiple Modals**: QR generation, top-up, and payment modals
+
+### Analytics Screen - Professional
+- **Dashboard Overview**: Key metrics cards with trend indicators
+- **Professional Analytics Button**: Access to advanced analytics dashboard
+- **Victory Charts**: Interactive spending trends and category breakdowns
+- **AI Insights Integration**: Direct access to spending recommendations
+
+### Card Management - Advanced
+- **Card Carousel**: Horizontal scrolling card display
+- **Multi-tab Interface**: Overview, transactions, and settings tabs
+- **Advanced Settings**: Spending limits, notifications, and security controls
+- **Card Actions**: Freeze/unfreeze, delete, and modify cards
+- **Add Card Flow**: Multi-step card addition with type selection
+
+### QR Scanner - Enhanced
+- **Real-time Scanning**: Fast QR code recognition
+- **Payment Validation**: Smart QR data validation
+- **Transaction History**: Track all scanned payments
+- **Error Handling**: User-friendly error messages
+
+### Profile Screen - Comprehensive
+- **User Preferences**: Theme, currency, and language settings
+- **Security Settings**: Biometric auth, PIN, and auto-lock
+- **Data Management**: Export, import, and cleanup utilities
+- **Support Integration**: Help, feedback, and contact options
+
+## 🛠 Installation & Setup
 
 ### Prerequisites
-- Node.js 18.17.0 or higher
-- Expo CLI
-- iOS Simulator (for iOS development)
-- Android Studio (for Android development)
-
-### Installation
-
-1. **Clone and setup**:
-   ```bash
-   git clone https://github.com/yourusername/linklayer-app.git
-   cd linklayer-app
-   npm install
-   ```
-
-2. **Environment Configuration**:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your actual values
-   ```
-
-3. **Start Development Server**:
-   ```bash
-   npx expo start
-   ```
-
-4. **Run on Device**:
-   - **iOS**: Press `i` in terminal or scan QR with Expo Go
-   - **Android**: Press `a` in terminal or scan QR with Expo Go
-   - **Web**: Press `w` in terminal
-
-### Environment Variables
-
-Create a `.env` file with the following variables:
-
-```env
-# WalletConnect Project ID (required)
-EXPO_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id_here
-
-# LinkLayer Chain Configuration
-EXPO_PUBLIC_LINKLAYER_RPC_URL=https://rpc-linklayer-v2-mainnet-0.t.conduit.xyz
-EXPO_PUBLIC_LINKLAYER_CHAIN_ID=97741
-
-# Optional API Keys
-EXPO_PUBLIC_ALCHEMY_API_KEY=your_alchemy_key
-EXPO_PUBLIC_INFURA_PROJECT_ID=your_infura_id
+```bash
+- Node.js 18+ and npm
+- Expo CLI: npm install -g @expo/cli
+- iOS Simulator (macOS) or Android Emulator
 ```
 
-## Project Structure
+### Environment Setup
+1. Copy `.env.example` to `.env`
+2. Add your WalletConnect Project ID:
+   ```
+   EXPO_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
+   ```
+3. Configure API endpoints if using backend services
+
+### Install Dependencies
+```bash
+npm install --legacy-peer-deps
+```
+
+### Run Development Server
+```bash
+npx expo start
+```
+
+## 🏗 Project Structure
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── SplashScreen.js
-│   └── ...
-├── screens/            # Main application screens
-│   ├── HomeScreen.js
-│   ├── QRScannerScreen.js
-│   ├── HistoryScreen.js
-│   ├── AnalyticsScreen.js
-│   └── ProfileScreen.js
-├── config/             # Configuration files
-└── assets/             # Images, fonts, etc.
+├── components/
+│   ├── AI/
+│   │   └── SmartSpendingAIChat.js        # AI chat interface
+│   ├── Analytics/
+│   │   └── ProfessionalAnalyticsDashboard.js  # Advanced analytics
+│   ├── Merchant/
+│   │   └── MerchantQRGenerator.js        # QR code generation
+│   ├── Onboarding/
+│   │   └── OnboardingTour.js             # User onboarding
+│   └── SplashScreen.js                   # App launch screen
+├── screens/
+│   ├── HomeScreen.js                     # Enhanced home screen
+│   ├── CardScreen.js                     # Advanced card management
+│   ├── AnalyticsScreen.js                # Professional analytics
+│   ├── QRScannerScreen.js                # QR scanning
+│   ├── HistoryScreen.js                  # Transaction history
+│   └── ProfileScreen.js                  # User profile
+├── config/
+│   └── index.js                          # App configuration
+└── utils/
+    ├── formatting.js                     # Data formatting utilities
+    ├── validation.js                     # Input validation
+    └── storage.js                        # AsyncStorage utilities
 ```
 
-## Key Components
+## 🔐 Security Features
 
-### Chain Configuration
-```javascript
-const linkLayerChain = {
-  id: 97741,
-  name: 'LinkLayer V2',
-  rpcUrls: {
-    default: { http: ['https://rpc-linklayer-v2-mainnet-0.t.conduit.xyz'] }
-  }
-}
+- **Biometric Authentication**: Fingerprint/Face ID integration
+- **PIN Protection**: 4-6 digit PIN with validation
+- **Auto-lock**: Configurable session timeout
+- **Secure Storage**: Encrypted local data storage
+- **Transaction Validation**: Multi-layer transaction security
+- **Privacy Controls**: User-controlled data sharing
+
+## 🚀 Performance Optimizations
+
+- **Lazy Loading**: Components loaded on demand
+- **Efficient Animations**: Hardware-accelerated animations
+- **Smart Caching**: Intelligent data caching strategies
+- **Memory Management**: Automatic cleanup of old data
+- **Bundle Optimization**: Tree-shaking and code splitting
+
+## 🧪 Testing & Quality
+
+### Automated Testing
+- **Unit Tests**: Component and utility testing
+- **Integration Tests**: Screen and flow testing
+- **E2E Tests**: Complete user journey testing
+
+### Code Quality
+- **ESLint**: JavaScript/TypeScript linting
+- **Prettier**: Code formatting
+- **TypeScript**: Type safety (optional)
+
+## 📦 Build & Deployment
+
+### Development Build
+```bash
+npx expo build:android --type apk
+npx expo build:ios --type simulator
 ```
 
-### Wallet Integration
-```javascript
-const config = getDefaultConfig({
-  appName: 'LinkLayer',
-  chains: [mainnet, linkLayerChain],
-  projectId: process.env.EXPO_PUBLIC_WALLETCONNECT_PROJECT_ID,
-});
+### Production Build
+```bash
+eas build --platform all
 ```
-
-## Building for Production
 
 ### Codemagic CI/CD
+- Automated builds on every commit
+- Multi-platform deployment
+- Environment variable management
+- Automated testing pipeline
 
-This project is configured for Codemagic automated builds:
+## 🌟 Advanced Integrations
 
-1. **Connect Repository**: Link your GitHub repo to Codemagic
-2. **Environment Variables**: Set required env vars in Codemagic dashboard
-3. **Build Configuration**: Uses `codemagic.yaml` for build settings
-4. **Deployment**: Automatic builds for both iOS and Android
+### Payment Processing
+- Multi-chain transaction support
+- Real-time balance updates
+- Gas fee optimization
+- Transaction status tracking
 
-### Manual Build
+### AI & Machine Learning
+- Spending pattern analysis
+- Predictive insights
+- Budget recommendations
+- Fraud detection (planned)
 
-```bash
-# Android
-npx expo build:android
+### Data Analytics
+- User behavior tracking
+- Performance monitoring
+- Crash reporting
+- Usage analytics
 
-# iOS
-npx expo build:ios
-```
+## 🔄 Data Flow
 
-## Development Guidelines
+1. **User Interaction**: User performs action (payment, QR scan, etc.)
+2. **Validation**: Input validation using utility functions
+3. **Processing**: Business logic and Web3 interactions
+4. **Storage**: Local data persistence with AsyncStorage
+5. **AI Analysis**: Spending pattern analysis and insights
+6. **UI Update**: Real-time UI updates with smooth animations
 
-### Code Style
-- Use functional components with hooks
-- Follow React Native best practices
-- Implement proper error boundaries
-- Use TypeScript where beneficial
+## 📱 Supported Platforms
 
-### Testing
-```bash
-# Run tests
-npm test
+- **iOS**: 13.0+ (iPhone, iPad)
+- **Android**: API level 21+ (Android 5.0+)
+- **Web**: Progressive Web App (PWA) support
 
-# Run with coverage
-npm run test:coverage
-```
-
-### Performance
-- Optimize images and assets
-- Use lazy loading for large lists
-- Implement proper memoization
-- Monitor bundle size
-
-## Security
-
-- **Private Keys**: Never commit private keys or sensitive data
-- **Environment Variables**: Use `.env` for configuration
-- **API Keys**: Rotate keys regularly
-- **Wallet Security**: Implement proper wallet connection validation
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Implement your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
-## Deployment
+## 📄 License
 
-### Codemagic Workflow
-- **Automatic Builds**: On push to main branch
-- **Environment Management**: Secure env var handling
-- **Multi-platform**: iOS and Android builds
-- **App Store Integration**: Automated publishing pipeline
+MIT License - see LICENSE file for details
 
-### Manual Deployment
-1. Build production bundles
-2. Upload to respective app stores
-3. Configure store listings
-4. Submit for review
+## 📞 Support
 
-## Support
-
-- **Documentation**: Check inline code comments
-- **Issues**: GitHub Issues for bug reports
-- **Discord**: Join our developer community
-- **Email**: support@linklayer.com
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- **RainbowKit Team**: For excellent wallet integration
-- **Expo Team**: For the amazing development platform
-- **Victory**: For powerful charting capabilities
-- **React Native Community**: For continuous innovation
+- **Email**: support@linklayer.app
+- **Documentation**: [docs.linklayer.app](https://docs.linklayer.app)
+- **Discord**: [LinkLayer Community](https://discord.gg/linklayer)
 
 ---
 
-**LinkLayer** - Empowering the future of Web3 payments 🚀
+**Built with ❤️ by the LinkLayer Team**
+
+*Bringing the future of payments to your fingertips*

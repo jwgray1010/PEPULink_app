@@ -10,18 +10,21 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAccount, useDisconnect } from 'wagmi';
+import { useTheme } from '../context/ThemeContext';
+import { hapticFeedback, biometricAuth } from '../utils/mobile';
 
 export default function ProfileScreen() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+  const { colors } = useTheme();
   
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [biometricEnabled, setBiometricEnabled] = useState(false);
   const [autoTopUpEnabled, setAutoTopUpEnabled] = useState(false);
 
   const profileData = {
-    name: 'LinkLayer User',
-    email: 'user@linklayer.com',
+    name: 'PEPULink User',
+    email: 'user@pepulink.com',
     memberSince: 'June 2025',
     tier: 'Gold Member',
     totalTransactions: 156,
@@ -50,9 +53,9 @@ export default function ProfileScreen() {
       onPress: () => Alert.alert('Help & Support', 'Coming soon!'),
     },
     {
-      title: 'About LinkLayer',
+      title: 'About PEPULink',
       icon: 'ℹ️',
-      onPress: () => Alert.alert('About', 'LinkLayer v1.0.0\nAdvanced Web3 Payment Platform'),
+      onPress: () => Alert.alert('About', 'PEPULink v1.0.0\nAdvanced Web3 Payment Platform'),
     },
   ];
 
@@ -194,7 +197,7 @@ export default function ProfileScreen() {
       )}
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>LinkLayer v1.0.0</Text>
+        <Text style={styles.footerText}>PEPULink v1.0.0</Text>
       </View>
     </ScrollView>
   );

@@ -1,340 +1,472 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
-  Dimensions 
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+  RefreshControl,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useAccount, useBalance, useConnect, useDisconnect } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
+import { useTheme } from '../context/ThemeContext';
 
 const { width } = Dimensions.get('window');
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, onShowAIChat, onShowMerchantQR }) {
+  const { theme } = useTheme();
   const { address, isConnected } = useAccount();
-  const { connect, connectors } = useConnect();
-  const { disconnect } = useDisconnect();
   const { data: balance } = useBalance({ address });
 
-  const [cardBalance, setCardBalance] = useState(1250.75);
-  const [recentTransactions, setRecentTransactions] = useState([
-    { id: 1, type: 'payment', amount: -25.50, merchant: 'Coffee Shop', time: '2 min ago' },
-    { id: 2, type: 'received', amount: +100.00, merchant: 'Top Up', time: '1 hour ago' },
-    { id: 3, type: 'payment', amount: -12.99, merchant: 'Gas Station', time: '3 hours ago' },
-  ]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [cardData] = useState({
+    number: "4242 4242 4242 4242",
+    name: "PEPU MEMBER",
+    expiry: "12/28",
+    balance: 1250.75,
+    tier: "Gold"
+  });
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  };
 
   const quickActions = [
     { 
       id: 1, 
-      title: 'Scan QR', 
+      title: 'QR Scanner', 
       icon: '📱', 
-      action: () => navigation.navigate('QR Scanner'),
-      color: '#00D2FF' 
+      onPress: () => navigation.navigate('QRScanner')
     },
     { 
       id: 2, 
-      title: 'Send Money', 
-      icon: '💸', 
-      action: () => {},
-      color: '#FF6B6B' 
+      title: 'Reload', 
+      icon: '🔄', 
+      onPress: () => onRefresh()
     },
     { 
       id: 3, 
-      title: 'Top Up', 
-      icon: '💳', 
-      action: () => {},
-      color: '#4ECDC4' 
+      title: 'Load', 
+      icon: '📂', 
+      onPress: () => {
+        // Handle load functionality - could navigate to history or load data
+        navigation.navigate('History');
+      }
     },
     { 
       id: 4, 
-      title: 'AI Assistant', 
-      icon: '🤖', 
-      action: () => {},
-      color: '#45B7D1' 
-    },
-  ];
-
-  const handleWalletConnect = async () => {
-    if (isConnected) {
-      disconnect();
-    } else {
-      const connector = connectors[0];
-      if (connector) {
-        connect({ connector });
+      title: 'Request', 
+      icon: '�', 
+      onPress: () => {
+        // Handle request payment functionality
+        onShowMerchantQR && onShowMerchantQR();
       }
     }
-  };
+  ];
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Header with Wallet Connection */}
+    <View style={styles.container}>
       <LinearGradient
-        colors={['#1a1a1a', '#2d2d2d']}
-        style={styles.header}
+        colors={['#667eea', '#764ba2']}
+        style={styles.backgroundGradient}
       >
-        <View style={styles.headerContent}>
-          <View>
-            <Text style={styles.greeting}>Welcome back!</Text>
-            <Text style={styles.userInfo}>
-              {isConnected ? `${address?.slice(0, 6)}...${address?.slice(-4)}` : 'Connect Wallet'}
-            </Text>
-          </View>
-          <TouchableOpacity 
-            style={[
-              styles.walletButton, 
-              { backgroundColor: isConnected ? '#4ECDC4' : '#00D2FF' }
-            ]}
-            onPress={handleWalletConnect}
-          >
-            <Text style={styles.walletButtonText}>
-              {isConnected ? '✅' : '🔗'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-
-      {/* Card Balance Section */}
-      <View style={styles.cardSection}>
-        <LinearGradient
-          colors={['#00D2FF', '#45B7D1']}
-          style={styles.card}
+        <ScrollView 
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#fff"
+            />
+          }
+          contentContainerStyle={styles.scrollContent}
         >
-          <Text style={styles.cardTitle}>LinkLayer Card</Text>
-          <Text style={styles.cardBalance}>${cardBalance.toFixed(2)}</Text>
-          <Text style={styles.cardSubtitle}>Available Balance</Text>
-          
-          {/* Chain Balance */}
-          {isConnected && balance && (
-            <View style={styles.chainBalance}>
-              <Text style={styles.chainBalanceText}>
-                Chain Balance: {parseFloat(balance.formatted).toFixed(4)} {balance.symbol}
-              </Text>
+          {/* PEPULink Card */}
+          <LinearGradient
+            colors={['#4ECDC4', '#44A08D']}
+            style={styles.pepulinkCard}
+          >
+            <View style={styles.cardHeader}>
+              <View style={styles.logoContainer}>
+                <View style={styles.logo}>
+                  <Text style={styles.logoText}>🔗</Text>
+                </View>
+                <View>
+                  <Text style={styles.cardTitle}>PEPULink</Text>
+                  <Text style={styles.membershipText}>Gold Member</Text>
+                </View>
+              </View>
+              <TouchableOpacity style={styles.roadmapButton}>
+                <Text style={styles.roadmapText}>Roadmap</Text>
+              </TouchableOpacity>
             </View>
-          )}
-        </LinearGradient>
-      </View>
 
-      {/* Quick Actions */}
-      <View style={styles.quickActionsSection}>
-        <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <View style={styles.quickActionsGrid}>
-          {quickActions.map((action) => (
-            <TouchableOpacity
-              key={action.id}
-              style={[styles.quickActionItem, { borderColor: action.color }]}
-              onPress={action.action}
-            >
-              <Text style={styles.quickActionIcon}>{action.icon}</Text>
-              <Text style={styles.quickActionTitle}>{action.title}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
+            {isConnected && address && (
+              <View style={styles.addressContainer}>
+                <Text style={styles.addressText}>
+                  {address.slice(0, 6)}...{address.slice(-4)}
+                </Text>
+              </View>
+            )}
 
-      {/* Recent Transactions */}
-      <View style={styles.transactionsSection}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Recent Activity</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('History')}>
-            <Text style={styles.seeAllText}>See All</Text>
-          </TouchableOpacity>
-        </View>
-        
-        {recentTransactions.map((transaction) => (
-          <View key={transaction.id} style={styles.transactionItem}>
-            <View style={styles.transactionIcon}>
-              <Text style={styles.transactionIconText}>
-                {transaction.type === 'payment' ? '💸' : '💰'}
+            <View style={styles.balanceSection}>
+              <Text style={styles.balanceLabel}>Available Balance</Text>
+              <Text style={styles.balanceAmount}>
+                ${cardData.balance.toFixed(2)}
               </Text>
+              <Text style={styles.cashbackRate}>5% cashback rate</Text>
             </View>
-            <View style={styles.transactionDetails}>
-              <Text style={styles.transactionMerchant}>{transaction.merchant}</Text>
-              <Text style={styles.transactionTime}>{transaction.time}</Text>
+
+            <View style={styles.monthlySpentContainer}>
+              <Text style={styles.monthlyLabel}>This Month</Text>
+              <Text style={styles.monthlyAmount}>$2,847.50</Text>
             </View>
-            <Text style={[
-              styles.transactionAmount,
-              { color: transaction.amount > 0 ? '#4ECDC4' : '#FF6B6B' }
-            ]}>
-              {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
-            </Text>
+          </LinearGradient>
+
+          {/* AI Insights Card */}
+          <View style={styles.insightsCard}>
+            <Text style={styles.insightsTitle}>🤖 AI Smart Insights</Text>
+            
+            <View style={styles.insightsRow}>
+              <View style={styles.insightItem}>
+                <Text style={styles.insightAmount}>$450</Text>
+                <Text style={styles.insightLabel}>Dining Spend</Text>
+              </View>
+              <View style={styles.insightItem}>
+                <Text style={styles.insightAmount}>$280</Text>
+                <Text style={styles.insightLabel}>Transport</Text>
+              </View>
+              <View style={styles.insightItem}>
+                <Text style={styles.insightAmount}>$320</Text>
+                <Text style={styles.insightLabel}>Shopping</Text>
+              </View>
+            </View>
+
+            <View style={styles.goalProgress}>
+              <Text style={styles.goalText}>Monthly Goal: $3,000</Text>
+              <View style={styles.progressBar}>
+                <View style={[styles.progressFill, { width: '95%' }]} />
+              </View>
+            </View>
           </View>
-        ))}
-      </View>
-    </ScrollView>
+
+          {/* Quick Actions */}
+          <View style={styles.actionButtonsRow}>
+            {quickActions.map((action) => (
+              <TouchableOpacity
+                key={action.id}
+                style={styles.actionButton}
+                onPress={action.onPress}
+              >
+                <LinearGradient
+                  colors={['#4ECDC4', '#44A08D']}
+                  style={styles.actionButton}
+                >
+                  <Text style={styles.actionIcon}>{action.icon}</Text>
+                  <Text style={styles.actionText}>{action.title}</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {/* Pay Last Merchant */}
+          <TouchableOpacity style={styles.payLastMerchant}>
+            <Text style={styles.payLastText}>💳 Pay Last Merchant</Text>
+          </TouchableOpacity>
+
+          {/* Recent Activity */}
+          <View style={styles.recentActivityContainer}>
+            <Text style={styles.recentActivityTitle}>Recent Activity</Text>
+            
+            <View style={styles.activityItem}>
+              <View style={styles.activityIcon}>
+                <Text style={styles.activityIconText}>🍔</Text>
+              </View>
+              <View style={styles.activityDetails}>
+                <Text style={styles.merchantName}>Coffee Shop</Text>
+                <Text style={styles.activityTime}>2 min ago</Text>
+              </View>
+              <Text style={styles.activityAmount}>-$25.50</Text>
+            </View>
+
+            <View style={styles.activityItem}>
+              <View style={styles.activityIcon}>
+                <Text style={styles.activityIconText}>💳</Text>
+              </View>
+              <View style={styles.activityDetails}>
+                <Text style={styles.merchantName}>Top Up</Text>
+                <Text style={styles.activityTime}>1 hour ago</Text>
+              </View>
+              <Text style={[styles.activityAmount, { color: '#4CAF50' }]}>+$100.00</Text>
+            </View>
+
+            <View style={styles.activityItem}>
+              <View style={styles.activityIcon}>
+                <Text style={styles.activityIconText}>⛽</Text>
+              </View>
+              <View style={styles.activityDetails}>
+                <Text style={styles.merchantName}>Gas Station</Text>
+                <Text style={styles.activityTime}>3 hours ago</Text>
+              </View>
+              <Text style={styles.activityAmount}>-$12.99</Text>
+            </View>
+          </View>
+
+          <View style={styles.bottomSpace} />
+        </ScrollView>
+      </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
-  header: {
-    paddingTop: 60,
-    paddingBottom: 20,
+  backgroundGradient: {
+    flex: 1,
+  },
+  scrollContent: {
     paddingHorizontal: 20,
+    paddingTop: 60,
+    paddingBottom: 120,
   },
-  headerContent: {
+  pepulinkCard: {
+    borderRadius: 20,
+    padding: 24,
+    marginBottom: 16,
+  },
+  cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 20,
   },
-  greeting: {
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  logoText: {
+    fontSize: 20,
+  },
+  cardTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
   },
-  userInfo: {
-    fontSize: 14,
-    color: '#888',
+  membershipText: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.8)',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 10,
     marginTop: 4,
   },
-  walletButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  walletButtonText: {
-    fontSize: 20,
-  },
-  cardSection: {
-    paddingHorizontal: 20,
-    marginTop: -30,
-  },
-  card: {
+  roadmapButton: {
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 15,
-    padding: 25,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
   },
-  cardTitle: {
-    fontSize: 16,
-    color: '#fff',
-    opacity: 0.9,
-  },
-  cardBalance: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginVertical: 8,
-  },
-  cardSubtitle: {
-    fontSize: 14,
-    color: '#fff',
-    opacity: 0.8,
-  },
-  chainBalance: {
-    marginTop: 10,
-    paddingTop: 10,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.3)',
-  },
-  chainBalanceText: {
+  roadmapText: {
     fontSize: 12,
-    color: '#fff',
-    opacity: 0.9,
-  },
-  quickActionsSection: {
-    paddingHorizontal: 20,
-    marginTop: 30,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15,
-  },
-  quickActionsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  quickActionItem: {
-    width: (width - 60) / 2,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    alignItems: 'center',
-    marginBottom: 15,
-    borderWidth: 2,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  quickActionIcon: {
-    fontSize: 32,
-    marginBottom: 8,
-  },
-  quickActionTitle: {
-    fontSize: 14,
+    color: '#16A34A',
     fontWeight: '600',
-    color: '#333',
   },
-  transactionsSection: {
-    paddingHorizontal: 20,
-    marginTop: 30,
+  addressContainer: {
     marginBottom: 20,
   },
-  sectionHeader: {
+  addressText: {
+    fontSize: 16,
+    color: 'rgba(255,255,255,0.8)',
+    fontFamily: 'monospace',
+  },
+  balanceSection: {
+    marginBottom: 20,
+  },
+  balanceLabel: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)',
+    marginBottom: 8,
+  },
+  balanceAmount: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 4,
+  },
+  cashbackRate: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)',
+  },
+  monthlySpentContainer: {
+    position: 'absolute',
+    top: 24,
+    right: 24,
+    alignItems: 'flex-end',
+  },
+  monthlyLabel: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.8)',
+    marginBottom: 4,
+  },
+  monthlyAmount: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  insightsCard: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 20,
+  },
+  insightsTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#16A34A',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  insightsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 20,
   },
-  seeAllText: {
+  insightItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  insightAmount: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#16A34A',
+    marginBottom: 4,
+  },
+  insightLabel: {
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
+  },
+  goalProgress: {
+    alignItems: 'center',
+  },
+  goalText: {
     fontSize: 14,
-    color: '#00D2FF',
+    color: '#666',
+    marginBottom: 8,
+  },
+  progressBar: {
+    width: '100%',
+    height: 8,
+    backgroundColor: '#E5E7EB',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#16A34A',
+    borderRadius: 4,
+  },
+  actionButtonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  actionButton: {
+    flex: 1,
+    aspectRatio: 1,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 4,
+  },
+  actionIcon: {
+    fontSize: 24,
+    marginBottom: 8,
+  },
+  actionText: {
+    fontSize: 12,
+    color: '#fff',
     fontWeight: '600',
   },
-  transactionItem: {
+  payLastMerchant: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 16,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  payLastText: {
+    fontSize: 16,
+    color: '#374151',
+    fontWeight: '500',
+  },
+  recentActivityContainer: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 20,
+  },
+  recentActivityTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 16,
+  },
+  activityItem: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 15,
-    marginBottom: 10,
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
+    padding: 16,
+    marginBottom: 12,
   },
-  transactionIcon: {
+  activityIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
+    backgroundColor: '#F3F4F6',
     alignItems: 'center',
-    marginRight: 15,
+    justifyContent: 'center',
+    marginRight: 12,
   },
-  transactionIconText: {
-    fontSize: 18,
+  activityIconText: {
+    fontSize: 20,
   },
-  transactionDetails: {
+  activityDetails: {
     flex: 1,
   },
-  transactionMerchant: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  transactionTime: {
-    fontSize: 12,
-    color: '#888',
-    marginTop: 2,
-  },
-  transactionAmount: {
+  merchantName: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#111827',
+    marginBottom: 2,
+  },
+  activityTime: {
+    fontSize: 12,
+    color: '#16A34A',
+  },
+  activityAmount: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#EF4444',
+  },
+  bottomSpace: {
+    height: 100,
   },
 });

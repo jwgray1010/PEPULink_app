@@ -1,27 +1,59 @@
 import React from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function SplashScreen() {
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const pulseAnim = React.useRef(new Animated.Value(1)).current;
 
   React.useEffect(() => {
+    // Fade in animation
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1000,
       useNativeDriver: true,
     }).start();
-  }, [fadeAnim]);
+
+    // Pulsing animation for logo
+    const pulse = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1.2,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    pulse.start();
+  }, [fadeAnim, pulseAnim]);
 
   return (
     <LinearGradient
-      colors={['#1a1a1a', '#2d2d2d', '#1a1a1a']}
+      colors={['#667eea', '#764ba2']}
       style={styles.container}
     >
       <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
         <View style={styles.logoContainer}>
-          <Text style={styles.logo}>🔗</Text>
-          <Text style={styles.title}>LinkLayer</Text>
+          <Animated.View 
+            style={[
+              styles.logoWrapper,
+              { 
+                transform: [{ scale: pulseAnim }] 
+              }
+            ]}
+          >
+            <Image 
+              source={require('../../assets/logo.png')} 
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
+          </Animated.View>
+          <Text style={styles.title}>PEPULink</Text>
         </View>
         <Text style={styles.subtitle}>Advanced Web3 Payment Platform</Text>
         <View style={styles.loadingContainer}>
@@ -37,6 +69,7 @@ export default function SplashScreen() {
               ]} 
             />
           </View>
+          <Text style={styles.loadingText}>Loading...</Text>
         </View>
       </Animated.View>
     </LinearGradient>
@@ -54,35 +87,59 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
   },
-  logo: {
-    fontSize: 80,
-    marginBottom: 10,
+  logoWrapper: {
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  logoImage: {
+    width: 120,
+    height: 120,
   },
   title: {
-    fontSize: 32,
+    fontSize: 42,
     fontWeight: 'bold',
-    color: '#00D2FF',
+    color: '#ffffff',
     marginBottom: 10,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   subtitle: {
-    fontSize: 16,
-    color: '#888',
-    marginBottom: 40,
+    fontSize: 18,
+    color: 'rgba(255, 255, 255, 0.8)',
+    marginBottom: 60,
+    textAlign: 'center',
+    paddingHorizontal: 40,
   },
   loadingContainer: {
-    width: 200,
+    width: 240,
+    alignItems: 'center',
   },
   loadingBar: {
-    height: 4,
-    backgroundColor: '#333',
-    borderRadius: 2,
+    height: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 3,
     overflow: 'hidden',
+    width: '100%',
   },
   loadingProgress: {
     height: '100%',
-    backgroundColor: '#00D2FF',
-    borderRadius: 2,
+    backgroundColor: '#4ECDC4',
+    borderRadius: 3,
+  },
+  loadingText: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 16,
+    marginTop: 20,
+    fontWeight: '500',
   },
 });

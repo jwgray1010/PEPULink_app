@@ -1,4 +1,4 @@
-name: LinkLayer CI/CD
+name: PEPULink CI/CD
 
 on:
   push:
@@ -21,6 +21,20 @@ jobs:
     
     - name: Install dependencies
       run: npm ci
+    
+    - name: Create environment file
+      run: |
+        echo "EXPO_PUBLIC_WALLETCONNECT_PROJECT_ID=${{ secrets.WALLETCONNECT_PROJECT_ID }}" > .env
+        echo "EXPO_PUBLIC_PEPU_RPC_URL=https://rpc-pepu-v2-mainnet-0.t.conduit.xyz" >> .env
+        echo "EXPO_PUBLIC_PEPU_CHAIN_ID=97741" >> .env
+        echo "EXPO_PUBLIC_PEPU_EXPLORER_URL=https://explorer-pepu-v2-mainnet-0.t.conduit.xyz" >> .env
+        echo "EXPO_PUBLIC_PEPU_TOKEN_ADDRESS=0xdb0976d5edc9bd329d354dabdeae00e4de11c941" >> .env
+        echo "EXPO_PUBLIC_WPEPU_TOKEN_ADDRESS=0xf9cf4a16d26979b929be7176bac4e7084975fcb8" >> .env
+        echo "EXPO_PUBLIC_PEPU_POOL_ADDRESS=0x3a614c79a17b18819ba6b97e330b61ba8fe34435" >> .env
+        echo "EXPO_PUBLIC_PEPU_WALLET_ADDRESS=0x919d918E23456ed8472AfBf17984f8f458661bCF" >> .env
+        echo "EXPO_PUBLIC_API_KEY=${{ secrets.PEPU_API_KEY }}" >> .env
+        echo "EXPO_PUBLIC_APP_NAME=PEPULink" >> .env
+        echo "EXPO_PUBLIC_APP_VERSION=2.0.0" >> .env
     
     - name: Run linter
       run: npm run lint || echo "No lint script found"
@@ -51,8 +65,18 @@ jobs:
       run: npx expo export:web
       env:
         EXPO_PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ secrets.WALLETCONNECT_PROJECT_ID }}
-        EXPO_PUBLIC_LINKLAYER_RPC_URL: https://rpc-linklayer-v2-mainnet-0.t.conduit.xyz
-        EXPO_PUBLIC_LINKLAYER_CHAIN_ID: 97741
+        EXPO_PUBLIC_PEPU_RPC_URL: https://rpc-pepu-v2-mainnet-0.t.conduit.xyz
+        EXPO_PUBLIC_PEPU_CHAIN_ID: 97741
+        EXPO_PUBLIC_PEPU_EXPLORER_URL: https://explorer-pepu-v2-mainnet-0.t.conduit.xyz
+        EXPO_PUBLIC_PEPU_TOKEN_ADDRESS: 0xdb0976d5edc9bd329d354dabdeae00e4de11c941
+        EXPO_PUBLIC_WPEPU_TOKEN_ADDRESS: 0xf9cf4a16d26979b929be7176bac4e7084975fcb8
+        EXPO_PUBLIC_PEPU_POOL_ADDRESS: 0x3a614c79a17b18819ba6b97e330b61ba8fe34435
+        EXPO_PUBLIC_PEPU_WALLET_ADDRESS: 0x919d918E23456ed8472AfBf17984f8f458661bCF
+        EXPO_PUBLIC_API_KEY: ${{ secrets.PEPU_API_KEY }}
+        EXPO_PUBLIC_APP_NAME: PEPULink
+        EXPO_PUBLIC_APP_VERSION: 2.0.0
+        EXPO_PUBLIC_ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
+        EXPO_PUBLIC_INFURA_PROJECT_ID: ${{ secrets.INFURA_PROJECT_ID }}
 
   codemagic-trigger:
     runs-on: ubuntu-latest

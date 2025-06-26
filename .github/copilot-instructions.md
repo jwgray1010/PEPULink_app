@@ -1,8 +1,8 @@
 <!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
 
-# LinkLayer Expo App - Copilot Instructions
+# PEPULink Expo App - Copilot Instructions
 
-This is a React Native Expo project for the LinkLayer payment platform with the following key features:
+This is a React Native Expo project for the PEPULink payment platform with the following key features:
 
 ## Project Architecture
 - **Framework**: React Native with Expo SDK
@@ -18,6 +18,7 @@ This is a React Native Expo project for the LinkLayer payment platform with the 
 2. **Payment System**: QR code scanning, merchant payments, card management
 3. **AI Smart Spending**: AI-powered spending analysis and recommendations
 4. **Analytics Dashboard**: Professional charts and financial insights
+5. **User Experience**: Onboarding tours, splash screens, floating messages
 5. **User Experience**: Onboarding tours, splash screens, floating messages
 
 ## Development Guidelines

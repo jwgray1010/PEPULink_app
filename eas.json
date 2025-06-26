@@ -1,0 +1,45 @@
+{
+  "cli": {
+    "version": ">= 8.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview"
+    },
+    "production": {
+      "channel": "production",
+      "ios": {
+        "bundleIdentifier": "com.jwgray1010.pepulink"
+      },
+      "android": {
+        "package": "com.jwgray1010.pepulink"
+      }
+    },
+    "production-ios": {
+      "extends": "production",
+      "platform": "ios"
+    },
+    "production-android": {
+      "extends": "production", 
+      "platform": "android"
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "your-apple-id@email.com",
+        "ascAppId": "your-app-store-connect-app-id",
+        "appleTeamId": "your-apple-team-id"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./google-services-key.json",
+        "track": "production"
+      }
+    }
+  }
+}

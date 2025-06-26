@@ -44,18 +44,13 @@
 
 ### 1. Set Up Remote Repository
 ```bash
-# Option A: GitHub (Recommended)
-git remote add origin https://github.com/USERNAME/PEPULink.git
-git push -u origin main
-
-# Option B: GitLab
-git remote add origin https://gitlab.com/USERNAME/PEPULink.git
-git push -u origin main
-
-# Option C: Bitbucket
-git remote add origin https://bitbucket.org/USERNAME/PEPULink.git
+# Create repository on GitHub first, then:
+git remote add origin https://github.com/jwgray1010/PEPULink_app.git
 git push -u origin main
 ```
+
+**REPOSITORY READY**: All code is committed and ready to push to:
+`https://github.com/jwgray1010/PEPULink_app`
 
 ### 2. Environment Setup on CI/CD Platform
 **Required Environment Variables**:

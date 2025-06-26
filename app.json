@@ -4,11 +4,11 @@
     "slug": "pepulink-app",
     "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/adaptive-icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pepulink.app",
+      "bundleIdentifier": "com.jwgray1010.pepulink",
       "buildNumber": "1",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to scan QR codes for payments.",
@@ -33,10 +33,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.pepulink.app",
+      "package": "com.jwgray1010.pepulink",
       "versionCode": 1,
       "permissions": [
         "CAMERA",
@@ -59,7 +59,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/adaptive-icon.png",
+          "icon": "./assets/logo.png",
           "color": "#007AFF",
           "mode": "production"
         }
@@ -74,7 +74,7 @@
       }
     },
     "notification": {
-      "icon": "./assets/adaptive-icon.png",
+      "icon": "./assets/logo.png",
       "color": "#007AFF",
       "androidMode": "default",
       "androidCollapsedTitle": "PEPULink"
